@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -64,6 +65,8 @@ func handleAPIResponse(resp *http.Response, reqBody interface{}) (*ModelResponse
 func MakeRequest(client *Client, method, endpoint string, body interface{}) (*http.Response, error) {
 	var req *http.Request
 	var err error
+
+	log.Printf("[DEBUG] Making %s request to %s", method, fmt.Sprintf("%s%s", client.APIBase, endpoint))
 
 	if body != nil {
 		jsonData, err := json.Marshal(body)
